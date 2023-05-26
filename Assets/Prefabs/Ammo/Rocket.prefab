@@ -83,7 +83,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.106027246
+        value: 0.05304873
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 1101043062399094408}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8454596041039172464}
@@ -317,13 +317,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fae904dc8f0424aa1db85782758d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 55
+  speed: 70
   sphere: {fileID: 7342528977530786445}
   trial: {fileID: 1101043061054565070}
   rb: {fileID: -567914100534804488}
   destroyEffect: {fileID: 180702, guid: c35ca8cd52b264a419ecc67e1919d259, type: 3}
-  startAngle: 0
-  Radius: 10
+  Radius: 12
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024

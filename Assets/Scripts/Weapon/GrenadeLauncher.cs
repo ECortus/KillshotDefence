@@ -5,12 +5,15 @@ using UnityEngine;
 public class GrenadeLauncher : Weapon
 {
     public override string Name => "GrenadeLauncher";
+    protected override int DefaultLevel => -1;
     public override ShootingType ShootType => ShootingType.Tap;
     protected override string PrefsKey => Name;
     protected override ObjectType AmmoType => ObjectType.GrenadeAmmo;
 
     public override void Shot()
     {
+        base.Shot();
+        
         Vector3 pos = muzzle.position;
         Vector3 rot = muzzle.eulerAngles;
 

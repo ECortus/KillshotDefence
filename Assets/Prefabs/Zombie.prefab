@@ -2587,7 +2587,7 @@ MonoBehaviour:
   walkingAnimation: {fileID: 4539748179536996298}
   rb: {fileID: 1889809971240687911}
   cd: {fileID: 5407265363015827569}
-  speedForward: 2
+  speedForward: 2.5
   target: {fileID: 0}
   stats: {fileID: 1889809971240687907}
   ragdoll: {fileID: 1889809971240687909}
@@ -2604,7 +2604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe24543f45dc994bb0c91075e61247d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultMaxHealth: 150
+  DefaultMaxHealth: 5
   DefaultDamage: 5
   DeathEvent:
     m_PersistentCalls:

@@ -26,6 +26,7 @@ public class GrenadeCollision : MonoBehaviour
                 BOOM();
                 break;
             default:
+                grenade.HitAboveSomething();
                 break;
         }
     }

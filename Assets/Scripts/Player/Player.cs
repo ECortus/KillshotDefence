@@ -85,6 +85,8 @@ public class Player : MonoBehaviour
 
     float Clamp(float ang, float min, float max)
     {
+        if(max == 360f || max == 0f) return ang;
+
         float rtrn = ang;
         float angle = ang % 360f;
 

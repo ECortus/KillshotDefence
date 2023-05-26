@@ -21,7 +21,6 @@ public class MoneyUI : MonoBehaviour
 
     void Start()
     {
-        Money.Load();
         ResetMoney();
     }
 

@@ -7,9 +7,11 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; set; }
 
+    public int LevelsOnBiom = 10;
     [SerializeField] private List<Level> Levels = new List<Level>();
 
     private int _Index { get { return Statistics.LevelIndex; } set { Statistics.LevelIndex = value; } }
+    public int GetRealIndex() => _Index;
     public int GetIndex() => _Index % Levels.Count;
     public void SetIndex(int value) => _Index = value;
 

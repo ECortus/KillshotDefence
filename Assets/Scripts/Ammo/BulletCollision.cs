@@ -40,6 +40,7 @@ public class BulletCollision : MonoBehaviour
                 bullet.HitAboveSomething();
                 break;
             default:
+                bullet.HitAboveSomething();
                 break;
         }
     }

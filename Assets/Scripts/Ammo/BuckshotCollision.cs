@@ -40,6 +40,7 @@ public class BuckshotCollision : MonoBehaviour
                 buckshot.HitAboveSomething();
                 break;
             default:
+                buckshot.HitAboveSomething();
                 break;
         }
     }

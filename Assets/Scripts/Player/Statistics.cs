@@ -21,5 +21,13 @@ public static class Statistics
     }
 
     private static int _money;
-    public static int Money { get { return _money; } set { _money = value; } }
+    public static int Money 
+    { 
+        get { return PlayerPrefs.GetInt(DataManager.MoneyKey, 0); } 
+        set 
+        { 
+            PlayerPrefs.SetInt(DataManager.MoneyKey, value);
+            PlayerPrefs.Save(); 
+        } 
+    }
 }

@@ -7,12 +7,14 @@ using Cysharp.Threading.Tasks;
 
 public class WeaponInfoUI : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
+    public bool Active => gameObject.activeSelf;
+
+    public Weapon Weapon;
     [SerializeField] private Shooting shooting;
-    private int Level => weapon.Level;
-    private int MaxLevel => weapon.MaxLevel;
-    private int AmmoAmount => weapon.AmmoAmount;
-    private float ReloadTime => weapon.ReloadTime;
+    private int Level => Weapon.Level;
+    private int MaxLevel => Weapon.MaxLevel;
+    private int AmmoAmount => Weapon.AmmoAmount;
+    private float ReloadTime => Weapon.ReloadTime;
 
     [Space]
     [SerializeField] private List<Image> levelsImages = new List<Image>();
@@ -22,14 +24,14 @@ public class WeaponInfoUI : MonoBehaviour
 
     public void OnButtonClick()
     {
-        shooting.SetWeapon(weapon.Name);
+        shooting.SetWeapon(Weapon.Name);
     }
 
     public void On()
     {
         gameObject.SetActive(true);
 
-        weapon.FullAmmo();
+        Weapon.FullAmmo();
         RefreshText();
         RefreshLevelGrid();
     }
@@ -56,6 +58,11 @@ public class WeaponInfoUI : MonoBehaviour
 
             levelsImages[i].sprite = sprite;
         }
+    }
+
+    public void Reset()
+    {
+        reloadSlider.value = reloadSlider.maxValue;
     }
 
     public async UniTask Reloading()

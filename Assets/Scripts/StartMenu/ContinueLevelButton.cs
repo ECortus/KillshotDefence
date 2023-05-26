@@ -10,6 +10,7 @@ public class ContinueLevelButton : MonoBehaviour
 
     void Update()
     {
-        lvltext.text = $"Level {index}";
+        /* lvltext.text = $"Level {index + 1}"; */
+        lvltext.text = $"Level {LevelManager.Instance.GetIndex() + 1}";
     }
 }

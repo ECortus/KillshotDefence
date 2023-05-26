@@ -8,7 +8,7 @@ public class Shooting : MonoBehaviour
     [HideInInspector] public bool IsShooting = false;
     private bool SomethingArmed = false;
 
-    [SerializeField] private List<ArmedWeapon> Weapons = new List<ArmedWeapon>();
+    public List<ArmedWeapon> Weapons = new List<ArmedWeapon>();
 
     private int Index = 0;
     public void SetWeapon(string name)
@@ -39,6 +39,7 @@ public class Shooting : MonoBehaviour
         }
     }
 
+
     private Weapon weapon => Weapons[Index].Weapon;
 
     private int ReloadTime => (int)(weapon.ReloadTime * 1000);
@@ -53,7 +54,7 @@ public class Shooting : MonoBehaviour
     public void Reset()
     {
         Index = 0;
-        SetWeapon("Minigun");
+        SetWeapon(WeaponsInfoController.Instance.DefaultWeapon);
     }
 
     void Update()

@@ -5,8 +5,6 @@ using UnityEngine;
 public class Grenade : Ammo
 {
     [Space]
-    [Range(0f, 45f)]
-    [SerializeField] private float startAngle = 45f;
     public float Radius = 5f;
     public LayerMask enemyMask;
 
@@ -34,15 +32,8 @@ public class Grenade : Ammo
 
         g = defG;
         distance = Vector3.Distance(center, destination);
-
-        angle = Mathf.Asin(distance * g / Mathf.Pow(speed, 2)) / 2f * Mathf.Rad2Deg;
-        if(hit.transform != null && startAngle > 0f) g = defG * (speed * 1.8f / angle);
-
-        if(angle > 45f) g = defG * 2f;
-
-        angle = startAngle;
-
-        transform.eulerAngles += new Vector3(-angle, transform.eulerAngles.y, transform.eulerAngles.z);
+        angle = (90f - (Mathf.Atan2(Mathf.Pow(speed, 2), distance * g) * Mathf.Rad2Deg)) / 2f;
+        transform.eulerAngles += new Vector3(-(angle), 0f, 0f);
 
         SetVelocity();
     }
@@ -52,8 +43,6 @@ public class Grenade : Ammo
         if(Vector3.Distance(Player.Instance.Transform.position, transform.position) > 200f) Off();
 
         transform.forward = rb.velocity.normalized;
-
-        if(g * Time.deltaTime > float.NaN) rb.velocity -= new Vector3(0f, g * Time.deltaTime, 0f);
-        else rb.velocity -= new Vector3(0f, defG * 2f * Time.deltaTime, 0f);
+        rb.velocity -= new Vector3(0f, g * Time.deltaTime, 0f);
     }
 }

@@ -16,24 +16,40 @@ public class Level : MonoBehaviour
     private PlayerHealth health => GameManager.Instance.health;
     private Shooting shooting => GameManager.Instance.shooting;
     private WeaponsInfoController weaponsInfo => GameManager.Instance.weaponsInfo;
+    
+    [SerializeField] private LevelBonuses bonuses;
 
     [Space]
     public LevelWaves LevelWaves;
     [SerializeField] private EnemyWavesGenerator Generator;
+    [SerializeField] private LevelTimer timer;
 
-    public void StartLevel()
+    public async void StartLevel()
     {
         ResetLevel();
+
+        if(bonuses != null)
+        {
+            bonuses.On();
+            await UniTask.WaitUntil(() => !bonuses.Active);
+        }
 
         moneyOnStart = Statistics.Money;
 
         Generator.On();
+        timer.On();
         GameManager.Instance.SetActive(true);
     }
 
     public void EndLevel()
     {
+        if(!GameManager.Instance.isActive) return;
+
+        if(bonuses != null) bonuses.RemoveBonus();
+        timer.Off();
         Money.Plus(LevelWaves.Reward);
+
+        Generator.KillAllEnemies();
 
         LevelManager.Instance.AddOneToIndex();
 
@@ -50,6 +66,8 @@ public class Level : MonoBehaviour
 
     public void LoseLevel()
     {
+        if(bonuses != null) bonuses.RemoveBonus();
+
         Generator.Off();
         UI.Instance.LoseLevel();
         GameManager.Instance.SetActive(false);
@@ -62,16 +80,32 @@ public class Level : MonoBehaviour
 
         shooting.FullAmmoAllWeapons();
         shooting.Reset();
-        weaponsInfo.Reset();
+
+        if(LevelManager.Instance.GetRealIndex() % LevelManager.Instance.LevelsOnBiom == 0) 
+        {
+            Debug.Log("reset biom");
+            ResetBiom();
+        }
+        weaponsInfo.ResetOnLevel();
 
         Generator.Off();
         Generator.ResetAllEnemies();
 
+        timer.Off();
+
         GameManager.Instance.SetActive(false);
+    }
+
+    public void ResetBiom()
+    {
+        /* weaponsInfo.ResetOnBiom(); */
+        BonusSaving.CancelAllBonuses();
     }
 
     public void IsLevelComplete()
     {
+        if(!GameManager.Instance.isActive) return;
+
         if(!Generator.isWorking)
         {
             if(Generator.AllDied)

@@ -74,7 +74,7 @@ public class HumanoidController : MonoBehaviour
     void Rotate()
 	{
 		Vector3 tv = (point - transform.position).normalized;
-        tv.x = 0f;
+        /* tv.x = 0f; */
         tv.y = 0f;
 		var rotation = Quaternion.LookRotation(tv);
         transform.localRotation = rotation;

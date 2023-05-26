@@ -26,6 +26,7 @@ public class RocketCollision : MonoBehaviour
                 BOOM();
                 break;
             default:
+                rocket.HitAboveSomething();
                 break;
         }
     }

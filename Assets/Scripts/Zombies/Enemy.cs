@@ -57,8 +57,12 @@ public class Enemy : EnemyController
 
     public void Off()
     {
+        Died = true;
+
         this.enabled = false;
         Deactivate();
+
+        LevelManager.Instance.ActualLevel.IsLevelComplete();
     }
 
     public void ChangeTagMaskToActive()
@@ -92,6 +96,8 @@ public class Enemy : EnemyController
 
     public void Death()
     {
+        if(Died) return;
+
         Died = true;
         ResetTarget();
         SetMove(0);

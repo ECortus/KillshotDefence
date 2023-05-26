@@ -7,9 +7,12 @@ public class Weapon : MonoBehaviour
 {
     public bool isReloading { get; set; }
     public virtual string Name { get; }
+    protected virtual int DefaultLevel { get; }
     public virtual ShootingType ShootType { get; }
     protected virtual string PrefsKey { get; }
     protected virtual ObjectType AmmoType { get; }
+
+    private string FalseUpgradeKey => PrefsKey + "FalseUpgrade";
 
     public int MaxLevel = 5;
 
@@ -17,7 +20,7 @@ public class Weapon : MonoBehaviour
     {
         get
         {
-            return PlayerPrefs.GetInt(PrefsKey, 0);
+            return PlayerPrefs.GetInt(PrefsKey, DefaultLevel);
         }
         set
         {
@@ -26,34 +29,69 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public int FalseUpgrades 
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(FalseUpgradeKey, 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt(FalseUpgradeKey, value);
+            PlayerPrefs.Save();
+        }
+    }
+
     public void UpLevel()
     {
         if(Level == MaxLevel) return;
 
-        Money.Minus(CostOfProgress);
-
         int value = Level + 1;
         Level = value;
 
-        infoUI.RefreshLevelGrid();
         AmmoAmount = MaxAmmoAmount;
+        infoUI.RefreshLevelGrid();
+    }
+
+    public void DownLevel()
+    {
+        if(Level <= 0 || FalseUpgrades == 0) return;
+
+        int value = Level - 1;
+        Level = value;
+
+        AmmoAmount = MaxAmmoAmount;
+        infoUI.RefreshLevelGrid();
     }
 
     [Header("Weapon par-s:")]
     [SerializeField] private float defaultDamage;
     [SerializeField] private float damageUpPerLevel;
+    private float DamageBonus = 0f;
+    public void SetDamageBonus(float value) => DamageBonus = value;
+    public void ResetDamageBonus() => DamageBonus = 0f;
     public float DamageUpPerLevel { get { return damageUpPerLevel * (1f + Level / 10f); } }
-    public float Damage { get { return defaultDamage + DamageUpPerLevel * Level; } }
+    public float Damage { get { return defaultDamage + DamageUpPerLevel * Level + DamageBonus; } }
 
     [Space]
     [SerializeField] private float defaultReloadTime;
     [SerializeField] private float reloadTimeDownPerLevel;
+    private int CoolDownBonus = 100;
+    public void SetCDBonus(int perc) => CoolDownBonus = perc;
+    public void ResetCDBonus() => CoolDownBonus = 100;
     public float ReloadTimeDownPerLevel { get { return reloadTimeDownPerLevel * (1f + Level / 10f); } }
-    public float ReloadTime { get { return defaultReloadTime + ReloadTimeDownPerLevel * Level; } }
+    public float ReloadTime { get { return (defaultReloadTime + ReloadTimeDownPerLevel * Level) * CoolDownBonus / 100f; } }
 
     [Space]
     [SerializeField] private int defaultAmmoAmount;
     [SerializeField] private float ammoAmountUpPerLevel;
+    private int AmmoBonus = 0;
+    public void SetAmmoBonus(int value)
+    {
+        AmmoBonus = value;
+        AmmoAmount = MaxAmmoAmount;
+    }
+    public void ResetAmmoBonus() => AmmoBonus = 0;
     public int AmmoAmountUpPerLevel { get { return (int)(ammoAmountUpPerLevel * (1f + Level / 10f)); } }
     private int _ammoAmount;
     public int AmmoAmount
@@ -68,13 +106,14 @@ public class Weapon : MonoBehaviour
             infoUI.RefreshText();
         }
     }
-    public int MaxAmmoAmount { get { return defaultAmmoAmount + AmmoAmountUpPerLevel * Level; } }
+    public int MaxAmmoAmount { get { return defaultAmmoAmount + AmmoAmountUpPerLevel * Level + AmmoBonus; } }
     public void FullAmmo()
     {
         AmmoAmount = MaxAmmoAmount;
     }
 
     [Space]
+    public int CostOfBuy = 100;
     [SerializeField] private int defaultCostOfProgress;
     [SerializeField] private int costUpPerLevel;
     public int CostUpPerLevel { get { return (int)(costUpPerLevel * (1f + Level / 10f)); } }
@@ -90,6 +129,7 @@ public class Weapon : MonoBehaviour
 
     [Space]
     [SerializeField] private WeaponInfoUI infoUI;
+    [SerializeField] private WeaponAnimation anim;
 
     /* void Start()
     {
@@ -108,7 +148,7 @@ public class Weapon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public virtual void Shot() { }
+    public virtual void Shot() { if(anim != null) anim.Play(); }
 
     public async UniTask ReduceAmmo()
     {
