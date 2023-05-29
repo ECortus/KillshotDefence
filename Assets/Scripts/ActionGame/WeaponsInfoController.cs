@@ -9,7 +9,21 @@ public class WeaponsInfoController : MonoBehaviour
 
     [SerializeField] private List<AvailableToArm> WeaponInfos = new List<AvailableToArm>();
 
-    public string DefaultWeapon => "Pistol";
+    public string DefaultWeapon
+    {
+        get
+        {
+            string def;
+            if(GetWeapon("Minigun").Level > -1) 
+            {
+                def = "Minigun";
+                PlayerPrefs.SetString($"{defaultName}{0}", "Minigun");
+            }
+            else def = "Pistol";
+
+            return def;
+        }
+    }
 
     int weaponCount => GameManager.Instance.shooting.Weapons.Count;
     string defaultName = "WeaponInfo";

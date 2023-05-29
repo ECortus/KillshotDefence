@@ -24,8 +24,6 @@ public class UpWeaponParameters : Bonus
     public override void Cancel()
     {
         Weapon weapon = WeaponsInfoController.Instance.GetWeapon(Name);
-        weapon.ResetDamageBonus();
-        weapon.ResetAmmoBonus();
-        weapon.ResetCDBonus();
+        weapon.ResetBonuses();
     }
 }

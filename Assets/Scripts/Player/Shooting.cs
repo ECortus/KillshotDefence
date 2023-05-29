@@ -59,7 +59,7 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if(SomethingArmed && !PointerIsOverUI.Instance.CheckThis())
+        if(SomethingArmed && !PointerIsOverUI.Instance.CheckThis() && !IsShooting)
         {
             if(Input.GetMouseButtonDown(0))
             {

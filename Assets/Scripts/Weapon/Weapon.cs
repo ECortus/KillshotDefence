@@ -57,18 +57,36 @@ public class Weapon : MonoBehaviour
     {
         if(Level <= 0 || FalseUpgrades == 0) return;
 
-        int value = Level - 1;
-        Level = value;
+        int value;
+        for(int i = 0; i < FalseUpgrades; i++)
+        {
+            if(Level == 0) break;
 
-        AmmoAmount = MaxAmmoAmount;
-        infoUI.RefreshLevelGrid();
+            value = Level - 1;
+            Level = value;
+
+            AmmoAmount = MaxAmmoAmount;
+            infoUI.RefreshLevelGrid();
+        }
+        FalseUpgrades = 0;
     }
 
     [Header("Weapon par-s:")]
     [SerializeField] private float defaultDamage;
     [SerializeField] private float damageUpPerLevel;
-    private float DamageBonus = 0f;
-    public void SetDamageBonus(float value) => DamageBonus = value;
+    private float DamageBonus
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat($"{PrefsKey}_CD", 0f);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat($"{PrefsKey}_CD", value);
+            PlayerPrefs.Save();
+        }
+    }
+    public void SetDamageBonus(float value) => DamageBonus += value;
     public void ResetDamageBonus() => DamageBonus = 0f;
     public float DamageUpPerLevel { get { return damageUpPerLevel * (1f + Level / 10f); } }
     public float Damage { get { return defaultDamage + DamageUpPerLevel * Level + DamageBonus; } }
@@ -76,8 +94,19 @@ public class Weapon : MonoBehaviour
     [Space]
     [SerializeField] private float defaultReloadTime;
     [SerializeField] private float reloadTimeDownPerLevel;
-    private int CoolDownBonus = 100;
-    public void SetCDBonus(int perc) => CoolDownBonus = perc;
+    private int CoolDownBonus
+    {
+        get
+        {
+            return PlayerPrefs.GetInt($"{PrefsKey}_CD", 100);
+        }
+        set
+        {
+            PlayerPrefs.SetInt($"{PrefsKey}_CD", value);
+            PlayerPrefs.Save();
+        }
+    }
+    public void SetCDBonus(int perc) => CoolDownBonus += (int)(CoolDownBonus * (perc / 100f));
     public void ResetCDBonus() => CoolDownBonus = 100;
     public float ReloadTimeDownPerLevel { get { return reloadTimeDownPerLevel * (1f + Level / 10f); } }
     public float ReloadTime { get { return (defaultReloadTime + ReloadTimeDownPerLevel * Level) * CoolDownBonus / 100f; } }
@@ -88,21 +117,21 @@ public class Weapon : MonoBehaviour
     private int AmmoBonus = 0;
     public void SetAmmoBonus(int value)
     {
-        AmmoBonus = value;
+        AmmoBonus += value;
         AmmoAmount = MaxAmmoAmount;
     }
     public void ResetAmmoBonus() => AmmoBonus = 0;
     public int AmmoAmountUpPerLevel { get { return (int)(ammoAmountUpPerLevel * (1f + Level / 10f)); } }
-    private int _ammoAmount;
     public int AmmoAmount
     {
         get
         {
-            return _ammoAmount;
+            return PlayerPrefs.GetInt($"{PrefsKey}_Ammo", 0);
         }
         set
         {
-            _ammoAmount = value;
+            PlayerPrefs.SetInt($"{PrefsKey}_Ammo", value);
+            PlayerPrefs.Save();
             infoUI.RefreshText();
         }
     }
@@ -110,6 +139,13 @@ public class Weapon : MonoBehaviour
     public void FullAmmo()
     {
         AmmoAmount = MaxAmmoAmount;
+    }
+
+    public void ResetBonuses()
+    {
+        ResetDamageBonus();
+        ResetCDBonus();
+        ResetAmmoBonus();
     }
 
     [Space]

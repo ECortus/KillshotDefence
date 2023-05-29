@@ -6,7 +6,18 @@ using UnityEngine.Events;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float defaultMaxHealth = 100f;
-    private float bonus = 0;
+    private float bonus
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("HealthBonus", 0f);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("HealthBonus", value);
+            PlayerPrefs.Save();
+        }
+    }
     public float MaxHealth
     {
         get
@@ -44,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
     public void AddBonus(float amnt)
     {
         bonus = amnt;
+        Restore();
     }
 
     public void ResetBonus()

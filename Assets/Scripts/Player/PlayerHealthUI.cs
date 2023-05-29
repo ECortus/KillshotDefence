@@ -14,6 +14,7 @@ public class PlayerHealthUI : /* InfoSliderUI */ MonoBehaviour
 
     public void Refresh()
     {
-        text.text = $"{(int)((CurrentValue/MaxValue) * 100)}%";
+        /* text.text = $"{(int)((CurrentValue/MaxValue) * 100)}%"; */
+        text.text = $"{(int)(CurrentValue)}%";
     }
 }

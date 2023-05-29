@@ -14,22 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGenerate: 1
   TimeToWin: 25
-  Reward: 1250
+  Reward: 750
   Waves:
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 10
+      Count: 3
       Sector: 0
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 15
+      Count: 5
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 25
+      Count: 3
       Sector: 2
-  MaxInRow: 15
+  - Enemies:
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 5
+      Sector: 1
+  MaxInRow: 3
   DelayBetweenEnemies: 0
-  DelayBetweenSlots: 1
-  DelayBetweenWaves: 4
+  DelayBetweenSlots: 0
+  DelayBetweenWaves: 1

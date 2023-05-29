@@ -56,8 +56,6 @@ public class MoneyUI : MonoBehaviour
         }
 
         ResetMoney();
-
-        StopCoroutine(coroutine);
         coroutine = null;
     }
 

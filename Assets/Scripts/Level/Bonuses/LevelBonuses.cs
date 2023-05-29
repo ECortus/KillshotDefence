@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelBonuses : MonoBehaviour
 {
-    [SerializeField] private List<Bonus> AllBonuses = new List<Bonus>();
+    public List<Bonus> AllBonuses = new List<Bonus>();
     [HideInInspector] public List<Bonus> Bonuses = new List<Bonus>();
     [SerializeField] private BonusUI ui;
     [SerializeField] private int RequiredCount;
@@ -16,6 +16,7 @@ public class LevelBonuses : MonoBehaviour
 
     void FormList()
     {
+        Bonuses.Clear();
         BonusType type;
 
         List<Bonus> list = new List<Bonus>();
@@ -54,6 +55,8 @@ public class LevelBonuses : MonoBehaviour
                 list.Remove(list[index]);
             }
         }
+
+        ChoisedBonus = null;
     }
 
     public void On()
@@ -85,7 +88,7 @@ public class LevelBonuses : MonoBehaviour
     public void ApplyBonus()
     {
         ChoisedBonus.Apply();
-        BonusSaving.AddUsedBonus(ChoisedBonus);
+        /* BonusSaving.AddUsedBonus(ChoisedBonus); */
     }
 
     public void RemoveBonus()

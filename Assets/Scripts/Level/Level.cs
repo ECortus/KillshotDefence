@@ -17,7 +17,7 @@ public class Level : MonoBehaviour
     private Shooting shooting => GameManager.Instance.shooting;
     private WeaponsInfoController weaponsInfo => GameManager.Instance.weaponsInfo;
     
-    [SerializeField] private LevelBonuses bonuses;
+    public LevelBonuses bonuses;
 
     [Space]
     public LevelWaves LevelWaves;
@@ -45,7 +45,7 @@ public class Level : MonoBehaviour
     {
         if(!GameManager.Instance.isActive) return;
 
-        if(bonuses != null) bonuses.RemoveBonus();
+        /* if(bonuses != null) bonuses.RemoveBonus(); */
         timer.Off();
         Money.Plus(LevelWaves.Reward);
 
@@ -62,11 +62,20 @@ public class Level : MonoBehaviour
     {
         Generator.ResetAllEnemies();
         UI.Instance.NextLevel();
+
+        int index = LevelManager.Instance.GetIndex() + 1;
+        if(index >= LevelManager.Instance.Levels.Count) index = 0;
+
+        if(StartMenu.Instance.LevelIndexs.Contains(index))
+        {
+            Debug.Log("reset biom");
+            ResetBiom();
+        }
     }
 
     public void LoseLevel()
     {
-        if(bonuses != null) bonuses.RemoveBonus();
+        /* if(bonuses != null) bonuses.RemoveBonus(); */
 
         Generator.Off();
         UI.Instance.LoseLevel();
@@ -81,11 +90,12 @@ public class Level : MonoBehaviour
         shooting.FullAmmoAllWeapons();
         shooting.Reset();
 
-        if(LevelManager.Instance.GetRealIndex() % LevelManager.Instance.LevelsOnBiom == 0) 
+        if(StartMenu.Instance.LevelIndexs.Contains(LevelManager.Instance.GetIndex()))
         {
             Debug.Log("reset biom");
             ResetBiom();
         }
+
         weaponsInfo.ResetOnLevel();
 
         Generator.Off();

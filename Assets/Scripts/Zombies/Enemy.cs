@@ -89,6 +89,8 @@ public class Enemy : EnemyController
 
         if(Health < 0f)
         {
+            Money.Plus(1);
+
             Death();
             ragdoll.FORCEAWAY(forceOfFORCEAWAY, missileDirectionOfFORCEAWAY);
         }
@@ -126,7 +128,7 @@ public class Enemy : EnemyController
 
     async void DelayToOff()
     {
-        await UniTask.Delay(8000);
+        await UniTask.Delay(5000);
         if(GameManager.Instance.isActive) Off();
     }
 }
