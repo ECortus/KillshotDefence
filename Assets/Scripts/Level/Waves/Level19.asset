@@ -14,35 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGenerate: 1
   TimeToWin: 25
-  Reward: 3000
+  Reward: 5000
   Waves:
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 5
+      Count: 15
       Sector: 0
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 75
+      Count: 30
+      Sector: 1
+    - Enemy: {fileID: 1889809971240687906, guid: 1ab594a535b64f84d9e6f9f61c50bc19,
+        type: 3}
+      Count: 7
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 5
+      Count: 15
       Sector: 2
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 25
+      Count: 20
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 55
+      Count: 25
       Sector: 2
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 25
+      Count: 20
+      Sector: 0
+  - Enemies:
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 20
+      Sector: 1
+    - Enemy: {fileID: 1889809971240687906, guid: 1ab594a535b64f84d9e6f9f61c50bc19,
+        type: 3}
+      Count: 5
+      Sector: 1
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 20
+      Sector: 2
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 20
       Sector: 0
   MaxInRow: 10
   DelayBetweenEnemies: 0
   DelayBetweenSlots: 0
-  DelayBetweenWaves: 1

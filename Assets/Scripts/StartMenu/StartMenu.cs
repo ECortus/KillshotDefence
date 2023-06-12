@@ -7,8 +7,12 @@ public class StartMenu : MonoBehaviour
     public static StartMenu Instance { get; set; }
     void Awake() => Instance = this;
 
+    [SerializeField] private List<ParticleSystem> particles;
     [SerializeField] private List<GameObject> backs;
     public List<int> LevelIndexs;
+
+    [Space]
+    [SerializeField] private List<UpgradeButton> upgradeButtons;
 
     void Start()
     {
@@ -27,10 +31,29 @@ public class StartMenu : MonoBehaviour
                 {
                     back.SetActive(false);
                 }
+
+                foreach(ParticleSystem part in particles)
+                {
+                    part.Stop();
+                    part.gameObject.SetActive(false);
+                }
                 
                 backs[i].SetActive(true);
+
+                particles[i].gameObject.SetActive(true);
+                particles[i].Play();
                 break;
             }
+        }
+
+        RefreshAllButtons();
+    }
+
+    public void RefreshAllButtons()
+    {
+        foreach(UpgradeButton button in upgradeButtons)
+        {
+            button.Refresh();
         }
     }
 

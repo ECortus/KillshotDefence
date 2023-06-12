@@ -6,7 +6,7 @@ public class GrenadeLauncher : Weapon
 {
     public override string Name => "GrenadeLauncher";
     protected override int DefaultLevel => -1;
-    public override ShootingType ShootType => ShootingType.Tap;
+    public override ShootingType ShootType => ShootingType.Hold;
     protected override string PrefsKey => Name;
     protected override ObjectType AmmoType => ObjectType.GrenadeAmmo;
 

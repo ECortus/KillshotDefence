@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RagdollController : MonoBehaviour
 {
+    [SerializeField] private Rigidbody mainRigidbody;
     [SerializeField] private List<Rigidbody> RBs = new List<Rigidbody>();
     [SerializeField] private List<Collider> CDs = new List<Collider>();
     [SerializeField] private List<Vector3> DefaultVector3Pos = new List<Vector3>();
@@ -81,14 +82,20 @@ public class RagdollController : MonoBehaviour
     public void FORCEAWAY(float force, Vector3 dir)
     {
         Vector3 direction = dir + new Vector3(
-            Random.Range(-1f, 1f),
-            0f,
-            Random.Range(-1f, 1f)
-        ) / 2f;
+            Random.Range(-1f, 1f) / 4f,
+            Random.Range(0.5f, 1f) / 2f,
+            Random.Range(-1f, 1f) / 4f
+        );
+
+        float rotate = force;
+        /* mainRigidbody.angularVelocity = dir * rotate; */
 
         foreach(Rigidbody rb in RBs)
         {
+            rb.isKinematic = false;
+
             rb.AddForce(direction * force);
+            /* rb.angularVelocity = direction * rotate; */
         }
     }
 }

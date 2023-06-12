@@ -7,7 +7,6 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; set; }
 
-    public int LevelsOnBiom = 10;
     public List<Level> Levels = new List<Level>();
 
     private int _Index { get { return Statistics.LevelIndex; } set { Statistics.LevelIndex = value; } }
@@ -93,8 +92,14 @@ public class LevelManager : MonoBehaviour
         Level level = go.GetComponent<Level>();
 
         Levels[GetIndex()] = level; */
+        /* UI.Instance.Restart();
+        LoadLevel(); */
+
+        ActualLevel.NextLevel();
+        OffLevel(ActualLevel);
+
         UI.Instance.Restart();
-        LoadLevel();
+        changeGameState.ChangeToStartMenu();
     }
 
     public void LoseLevel()

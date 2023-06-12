@@ -13,6 +13,8 @@ public class ParticlePool : MonoBehaviour
     private List<ParticleSystem> GrenadeEffectPool = new List<ParticleSystem>();
     private List<ParticleSystem> HitEnemyEffectPool = new List<ParticleSystem>();
     private List<ParticleSystem> DeathZombieEffectPool = new List<ParticleSystem>();
+    private List<ParticleSystem> ActivateZombieEffectPool = new List<ParticleSystem>();
+    private List<ParticleSystem> DeactivateZombieEffectPool = new List<ParticleSystem>();
 
     public GameObject InsertAmmoEffect(ParticleType type, GameObject obj, Vector3 pos)
     {
@@ -71,6 +73,12 @@ public class ParticlePool : MonoBehaviour
             case ParticleType.DeathZombieEffect:
                 list = DeathZombieEffectPool;
                 break;
+            case ParticleType.ActivateZombieEffect:
+                list = ActivateZombieEffectPool;
+                break;
+            case ParticleType.DeactivateZombieEffect:
+                list = DeactivateZombieEffectPool;
+                break;
             default:
                 return null;
         }
@@ -84,6 +92,12 @@ public class ParticlePool : MonoBehaviour
                 break;
             case ParticleType.DeathZombieEffect:
                 DeathZombieEffectPool = list;
+                break;
+            case ParticleType.ActivateZombieEffect:
+                ActivateZombieEffectPool = list;
+                break;
+            case ParticleType.DeactivateZombieEffect:
+                DeactivateZombieEffectPool = list;
                 break;
             default:
                 return null;
@@ -116,5 +130,6 @@ public class ParticlePool : MonoBehaviour
 [System.Serializable]
 public enum ParticleType
 {
-    Default, BulletEffect, BuckshotEffect, GrenadeEffect, RocketEffect, HitEnemyEffect, DeathZombieEffect
+    Default, BulletEffect, BuckshotEffect, GrenadeEffect, RocketEffect, HitEnemyEffect, 
+    DeathZombieEffect, ActivateZombieEffect, DeactivateZombieEffect
 }

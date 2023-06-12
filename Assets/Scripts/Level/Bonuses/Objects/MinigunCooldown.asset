@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Minigun
   plusDamage: 0
   plusAmmo: 0
-  reduceCooldownInPercent: 25
+  reduceCooldownInPercent: 15

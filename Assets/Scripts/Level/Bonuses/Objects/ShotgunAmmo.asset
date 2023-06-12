@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Shotgun
   plusDamage: 0
-  plusAmmo: 6
+  plusAmmo: 4
   reduceCooldownInPercent: 0

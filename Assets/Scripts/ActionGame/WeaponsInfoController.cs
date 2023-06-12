@@ -9,87 +9,59 @@ public class WeaponsInfoController : MonoBehaviour
 
     [SerializeField] private List<AvailableToArm> WeaponInfos = new List<AvailableToArm>();
 
-    public string DefaultWeapon
-    {
-        get
-        {
-            string def;
-            if(GetWeapon("Minigun").Level > -1) 
-            {
-                def = "Minigun";
-                PlayerPrefs.SetString($"{defaultName}{0}", "Minigun");
-            }
-            else def = "Pistol";
+    public string DefaultWeapon => "Pistol";
 
-            return def;
-        }
-    }
-
-    int weaponCount => GameManager.Instance.shooting.Weapons.Count;
+    public int WeaponCount => 4;
     string defaultName = "WeaponInfo";
-    public List<string> RequireToArm
+
+    public List<string> RequireToArm = new List<string>{};
+    
+    public void Save()
     {
-        get
+        List<string> names = RequireToArm;
+
+        for(int i = 0; i < names.Count; i++)
         {
-            List<string> names = new List<string>{DefaultWeapon};
-
-            string name;
-            int count = weaponCount;
-            for(int i = 0; i < count; i++)
-            {
-                name = PlayerPrefs.GetString($"{defaultName}{i}", "");
-                /* if(names.Contains(name))
-                {
-                    count++;
-                    continue;
-                }
-                names.Add(name); */
-                if(name != "")
-                {
-                    if(names.Contains(name))
-                    {
-                        count++;
-                        continue;
-                    }
-                    names.Add(name);
-                }
-            }
-            return names;
+            PlayerPrefs.SetString($"{defaultName}{i}", names[i]);
         }
-        set
-        {
-            List<string> names = value;
-            List<string> have = new List<string>();
 
-            for(int i = 0; i < weaponCount; i++)
-            {
-                if(names.Count > 0)
-                {
-                    if(names[0] == "" || have.Contains(names[0]))
-                    {
-                        names.Remove(names[0]);
-                        i--;
-                        continue;
-                    }
-
-                    PlayerPrefs.SetString($"{defaultName}{i}", names[0]);
-
-                    have.Add(names[0]);
-                    names.Remove(names[0]);
-                }
-                else
-                {
-                    PlayerPrefs.SetString($"{defaultName}{i}", "");
-                }
-            }
-            PlayerPrefs.Save();
-        }
+        PlayerPrefs.Save();
     }
 
-    /* void Start()
+    public void Load()
     {
-        Refresh();
-    } */
+        List<string> names = new List<string>();
+
+        if(PlayerPrefs.GetString($"{defaultName}{0}", "") == "") names.Add(DefaultWeapon);
+
+        string name;
+        int count = WeaponCount;
+        
+        for(int i = 0; i < count; i++)
+        {
+            name = PlayerPrefs.GetString($"{defaultName}{i}", "");
+            if(name != "")
+            {
+                names.Add(name);
+            }
+        }
+
+        List<string> filtered = new List<string>();
+        foreach(string nam in names)
+        {
+            if(!filtered.Contains(nam))
+            {
+                filtered.Add(nam);
+            }
+        }
+
+        RequireToArm = filtered;
+    }
+
+    void Start()
+    {
+        Load();
+    }
 
     public Weapon GetWeapon(string name)
     {
@@ -113,6 +85,8 @@ public class WeaponsInfoController : MonoBehaviour
             {
                 info.Weapon.UpLevel();
                 info.Weapon.FalseUpgrades++;
+
+                info.Reset();
             }
         }
     }
@@ -152,9 +126,29 @@ public class WeaponsInfoController : MonoBehaviour
         if(!RequireToArm.Contains(name))
         {
             List<string> toarm = RequireToArm;
+
+            /* for(int i = 0; i < toarm.Count; i++)
+            {
+                if(toarm[i] == "")
+                {
+                    toarm.Remove(toarm[i]);
+                    i--;
+                }
+            } */
+
+            if(toarm.Count == WeaponCount)
+            {
+                if(toarm[toarm.Count - 1] != "") toarm.RemoveAt(0);
+            }
+
             toarm.Add(name);
+            /* if(toarm.Count < 4) toarm.Add(name);
+            else toarm[3] = name; */
+
             RequireToArm = toarm;
         }
+
+        Save();
         Refresh();
     }
 
@@ -164,8 +158,11 @@ public class WeaponsInfoController : MonoBehaviour
         {
             List<string> toarm = RequireToArm;
             toarm.Remove(name);
+            /* toarm[toarm.IndexOf(name)] = ""; */
             RequireToArm = toarm;
         }
+
+        Save();
         Refresh();
     }
 

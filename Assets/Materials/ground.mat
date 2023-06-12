@@ -96,7 +96,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopTex:
-        m_Texture: {fileID: 2800000, guid: ce81f420faeb9e04aa423ae1e5a6b42c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 989a29ba5ad2be34596c3065ae9e1560, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TransTex:

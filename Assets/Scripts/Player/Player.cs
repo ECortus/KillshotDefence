@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
-        transform.eulerAngles = Vector3.zero;
+        transform.eulerAngles = new Vector3(5f, 0f, 0f);
     }
 
     void Update()
@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PrepareToRotate();
+
+            if(!Tutorial.Instance.Complete && Tutorial.Instance.State == TutorialState.ROTATE)
+            {
+                Tutorial.Instance.SetState(TutorialState.NONE);
+            }
         }
         if (Input.GetMouseButton(0))
         {

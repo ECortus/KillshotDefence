@@ -6,10 +6,10 @@ public class EnemyWavesGenerator : MonoBehaviour
 {
     private LevelWaves LevelWaves => LevelManager.Instance.ActualLevel.LevelWaves;
 
-    private List<EnemyWave> Waves => LevelWaves.Waves;
+    public List<EnemyWave> Waves => LevelWaves.Waves;
     private float DelayBetweenEnemies => LevelWaves.DelayBetweenEnemies;
     private float DelayBetweenSlots => LevelWaves.DelayBetweenSlots;
-    private float DelayBetweenWaves => LevelWaves.DelayBetweenWaves;
+    /* private float DelayBetweenWaves => LevelWaves.DelayBetweenWaves; */
 
     public bool AllDied
     {
@@ -116,7 +116,7 @@ public class EnemyWavesGenerator : MonoBehaviour
         coroutine = null;
     }
 
-    int Wave = -1;
+    [HideInInspector] public int Wave = -1;
     int Slot = -1;
     int Enemy = -1;
 
@@ -124,7 +124,7 @@ public class EnemyWavesGenerator : MonoBehaviour
     {
         WaitForSeconds waitEnemy = new WaitForSeconds(DelayBetweenEnemies);
         WaitForSeconds waitSlot = new WaitForSeconds(DelayBetweenSlots - DelayBetweenEnemies);
-        WaitForSeconds waitWave = new WaitForSeconds(DelayBetweenWaves - DelayBetweenSlots - DelayBetweenEnemies);
+        /* WaitForSeconds waitWave = new WaitForSeconds(DelayBetweenWaves - DelayBetweenSlots - DelayBetweenEnemies); */
 
         int t = 0;
         Wave = -1;
@@ -133,7 +133,16 @@ public class EnemyWavesGenerator : MonoBehaviour
         {
             Wave++;
             Slot = -1;
-            if(t > 0) yield return waitWave;
+
+            if(t > 0)
+            {
+                yield return new WaitUntil(() => AllDied);
+
+                LevelManager.Instance.ActualLevel.Bonuses.On();
+                yield return new WaitUntil(() => !LevelManager.Instance.ActualLevel.Bonuses.Active);
+            }
+
+            LevelManager.Instance.ActualLevel.waveCounter.Refresh();
 
             foreach(EnemySlot slot in wave.Enemies)
             {

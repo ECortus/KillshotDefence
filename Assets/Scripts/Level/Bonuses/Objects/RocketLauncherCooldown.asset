@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: RocketLauncher
   plusDamage: 0
   plusAmmo: 0
-  reduceCooldownInPercent: 35
+  reduceCooldownInPercent: 25

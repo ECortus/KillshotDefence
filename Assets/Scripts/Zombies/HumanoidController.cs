@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class HumanoidController : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class HumanoidController : MonoBehaviour
     [Header("Humanoid info: ")]
     /* public Animator animator; */
     [SerializeField] private Animation walkingAnimation;
-    public void OnAnimation() => walkingAnimation.Play();
+    [SerializeField] private string walkingAnimName, attackAnimName;
+    public void OnWalkAnimation() => walkingAnimation.Play(walkingAnimName);
+    public void OnAttackAnimation() => walkingAnimation.Play(attackAnimName);
+    public float GetAttackAnimationLength() => walkingAnimation.GetClip(attackAnimName).length;
     public void OffAnimation() => walkingAnimation.Stop();
 
     public Rigidbody rb;
-    public Collider cd;
+    public Collider baseCd, dragCd;
 
     [Space]
     /* [SerializeField] private float rotateSpeed; */
@@ -49,7 +53,7 @@ public class HumanoidController : MonoBehaviour
             return dir;
         }
     }
-
+    
     void FixedUpdate()
     {
         UpdateAnimator();

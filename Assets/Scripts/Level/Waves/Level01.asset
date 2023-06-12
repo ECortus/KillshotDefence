@@ -19,22 +19,16 @@ MonoBehaviour:
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 3
+      Count: 2
       Sector: 0
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 5
+      Count: 2
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 3
+      Count: 2
       Sector: 2
-  - Enemies:
-    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
-        type: 3}
-      Count: 5
-      Sector: 1
   MaxInRow: 3
   DelayBetweenEnemies: 0
   DelayBetweenSlots: 0
-  DelayBetweenWaves: 1

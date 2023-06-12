@@ -45,6 +45,7 @@ public class ObjectPool : MonoBehaviour
                 if(weapon != null)
                 {
                     am.SetDamage(weapon.Damage);
+                    am.SetFORCEAWAY(weapon.FORCEAWAY);
                 }
 
                 am.On();
@@ -53,15 +54,14 @@ public class ObjectPool : MonoBehaviour
         }
 
         Ammo scr = Instantiate(obj, pos, Quaternion.Euler(rot)).GetComponent<Ammo>();
-
-        /* scr.Reset(pos, rot); */
+        scr.Reset(pos, rot);
 
         if(weapon != null)
         {
             scr.SetDamage(weapon.Damage);
         }
 
-        /* scr.On(); */
+        scr.On();
 
         list.Add(scr);
 

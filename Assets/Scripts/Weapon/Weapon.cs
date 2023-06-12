@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     private string FalseUpgradeKey => PrefsKey + "FalseUpgrade";
 
     public int MaxLevel = 5;
+    public int GameLevelToUnlock = -1;
 
     public int Level
     {
@@ -92,6 +93,9 @@ public class Weapon : MonoBehaviour
     public float Damage { get { return defaultDamage + DamageUpPerLevel * Level + DamageBonus; } }
 
     [Space]
+    public float FORCEAWAY = 1000f;
+
+    [Space]
     [SerializeField] private float defaultReloadTime;
     [SerializeField] private float reloadTimeDownPerLevel;
     private int CoolDownBonus
@@ -165,7 +169,7 @@ public class Weapon : MonoBehaviour
 
     [Space]
     [SerializeField] private WeaponInfoUI infoUI;
-    [SerializeField] private WeaponAnimation anim;
+    public WeaponAnimation anim;
 
     /* void Start()
     {

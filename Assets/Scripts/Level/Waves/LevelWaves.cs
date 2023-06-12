@@ -16,7 +16,7 @@ public class LevelWaves : ScriptableObject
     public int MaxInRow = 5;
     public float DelayBetweenEnemies = 10f;
     public float DelayBetweenSlots = 1f;
-    public float DelayBetweenWaves = 10f;
+    /* public float DelayBetweenWaves = 10f; */
 }
 
 [System.Serializable]

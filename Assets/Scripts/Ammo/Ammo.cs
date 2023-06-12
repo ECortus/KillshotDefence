@@ -18,6 +18,15 @@ public class Ammo : MonoBehaviour
         }
     }
 
+    private float force;
+    public float Force
+    {
+        get
+        {
+            return force;
+        }
+    }
+
 
     public bool Active => gameObject.activeSelf;
     
@@ -50,6 +59,12 @@ public class Ammo : MonoBehaviour
     {
         damage = dmg;
     }
+
+    public void SetFORCEAWAY(float frc)
+    {
+        force = frc;
+    }
+
 
     public void SetDirection(Vector3 dir)
     {

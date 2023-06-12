@@ -19,16 +19,33 @@ MonoBehaviour:
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 25
+      Count: 10
       Sector: 0
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 65
+      Count: 40
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 25
+      Count: 10
       Sector: 2
+  - Enemies:
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 15
+      Sector: 1
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 15
+      Sector: 2
+    - Enemy: {fileID: 1889809971240687906, guid: 1ab594a535b64f84d9e6f9f61c50bc19,
+        type: 3}
+      Count: 5
+      Sector: 0
+    - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
+        type: 3}
+      Count: 15
+      Sector: 0
   - Enemies:
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
@@ -36,13 +53,16 @@ MonoBehaviour:
       Sector: 1
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
-      Count: 45
+      Count: 15
       Sector: 2
     - Enemy: {fileID: 1889809971240687906, guid: b6012504521cba246ad94d2edb0936d5,
         type: 3}
       Count: 25
       Sector: 0
+    - Enemy: {fileID: 1889809971240687906, guid: 1ab594a535b64f84d9e6f9f61c50bc19,
+        type: 3}
+      Count: 2
+      Sector: 0
   MaxInRow: 10
   DelayBetweenEnemies: 0
   DelayBetweenSlots: 0
-  DelayBetweenWaves: 1

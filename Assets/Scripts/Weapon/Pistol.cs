@@ -6,7 +6,7 @@ public class Pistol : Weapon
 {
     public override string Name => "Pistol";
     protected override int DefaultLevel => 0;
-    public override ShootingType ShootType => ShootingType.Tap;
+    public override ShootingType ShootType => ShootingType.Hold;
     protected override string PrefsKey => Name;
     protected override ObjectType AmmoType => ObjectType.BulletAmmo;
 

@@ -25,6 +25,7 @@ public class WeaponInfoUI : MonoBehaviour
     public void OnButtonClick()
     {
         shooting.SetWeapon(Weapon.Name);
+        shooting.IsShooting = false;
     }
 
     public void On()
@@ -32,6 +33,7 @@ public class WeaponInfoUI : MonoBehaviour
         gameObject.SetActive(true);
 
         Weapon.FullAmmo();
+        shooting.IsShooting = false;
         RefreshText();
         RefreshLevelGrid();
     }

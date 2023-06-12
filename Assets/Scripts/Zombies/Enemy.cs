@@ -29,6 +29,7 @@ public class Enemy : EnemyController
     }
 
     public float Damage => DefaultDamage;
+    /* [SerializeField] private float AttackDelay; */
 
     [Header("Ref-s:")]
     [SerializeField] private EnemyStats stats;
@@ -45,6 +46,8 @@ public class Enemy : EnemyController
 
     public void On(Vector3 pos = new Vector3(), Vector3 rot = new Vector3())
     {
+        StopAttack();
+
         /* ragdoll.Off(); */
         this.enabled = true;
 
@@ -81,6 +84,37 @@ public class Enemy : EnemyController
         ragdoll.SetTagMask(gameObject.tag, gameObject.layer);
     }
 
+    Coroutine coroutine;
+    
+    public void StartAttack(PlayerHealth player)
+    {
+        if(coroutine == null) coroutine = StartCoroutine(Attack(player));
+    }
+
+    public void StopAttack()
+    {
+        if(coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
+    IEnumerator Attack(PlayerHealth player)
+    {
+        ResetTarget();
+
+        OnAttackAnimation();
+
+        float length = GetAttackAnimationLength();
+        WaitForSeconds wait = new WaitForSeconds(length);
+
+        yield return new WaitForSeconds(length / 3f);
+
+        while(true)
+        {
+            player.GetHit(Damage);
+            yield return wait;
+        }
+    }
+
     public void GetHit(float dmg, float forceOfFORCEAWAY = 0f, Vector3 missileDirectionOfFORCEAWAY = new Vector3())
     {
         if(Died) return;
@@ -99,6 +133,8 @@ public class Enemy : EnemyController
     public void Death()
     {
         if(Died) return;
+
+        StopAttack();
 
         Died = true;
         ResetTarget();
@@ -128,7 +164,7 @@ public class Enemy : EnemyController
 
     async void DelayToOff()
     {
-        await UniTask.Delay(5000);
-        if(GameManager.Instance.isActive) Off();
+        await UniTask.Delay(4000);
+        Off();
     }
 }

@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d218993f15dd4244cb0f804ab80bd76f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
+  speed: 200
   sphere: {fileID: 7342528977530786445}
   trial: {fileID: 1101043061054565070}
   rb: {fileID: -567914100534804488}
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1695244034631509393}
+  force: 2000
   EnemyHitEffect: {fileID: 2353660010177436141, guid: 382ac5d44b740274f92566a4a36b538e,
     type: 3}
 --- !u!1 &1828735678032981429

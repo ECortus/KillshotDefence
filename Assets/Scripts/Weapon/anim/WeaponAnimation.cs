@@ -13,7 +13,7 @@ public class WeaponAnimation : MonoBehaviour
 
     public virtual void Stop()
     {
-
+        if(animate != null) animate.Stop();
     }
 
     protected virtual void Update()

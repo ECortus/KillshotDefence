@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletCollision : MonoBehaviour
 {
     [SerializeField] private Bullet bullet;
+    private float force => bullet.Force;
 
     [Space]
     [SerializeField] private GameObject EnemyHitEffect;
@@ -21,7 +22,7 @@ public class BulletCollision : MonoBehaviour
                 enemy = go.GetComponentInParent<Enemy>();
                 if(enemy != null && !enemy.Died)
                 {
-                    enemy.GetHit(bullet.Damage, 1500f, (enemy.transform.position - bullet.center).normalized);
+                    enemy.GetHit(bullet.Damage, force, transform.forward);
                     bullet.Off();
                     AddEffect(enemy.Center);
                 }

@@ -21,8 +21,8 @@ TagManager:
   - Player
   - 
   - Enemy
+  - EnemyDrag
   - ExplosiveObject
-  - 
   - 
   - 
   - 

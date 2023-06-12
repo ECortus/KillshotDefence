@@ -23,13 +23,13 @@ public static class BonusSaving
     {
         get
         {
-            if(LevelManager.Instance.ActualLevel.bonuses == null)
+            if(LevelManager.Instance.ActualLevel.Bonuses == null)
             {
                 return new List<Bonus>();
             }
             else
             {
-                return LevelManager.Instance.ActualLevel.bonuses.AllBonuses;
+                return LevelManager.Instance.ActualLevel.Bonuses.AllBonuses;
             }
         }
     } 

@@ -17,36 +17,42 @@ public class Level : MonoBehaviour
     private Shooting shooting => GameManager.Instance.shooting;
     private WeaponsInfoController weaponsInfo => GameManager.Instance.weaponsInfo;
     
-    public LevelBonuses bonuses;
+    public LevelBonuses Bonuses;
 
     [Space]
     public LevelWaves LevelWaves;
-    [SerializeField] private EnemyWavesGenerator Generator;
+    public EnemyWavesGenerator Generator;
+    public LevelWaveCounter waveCounter;
     [SerializeField] private LevelTimer timer;
 
     public async void StartLevel()
     {
         ResetLevel();
 
-        if(bonuses != null)
+        if(Bonuses != null)
         {
-            bonuses.On();
-            await UniTask.WaitUntil(() => !bonuses.Active);
+            Bonuses.On();
+            await UniTask.WaitUntil(() => !Bonuses.Active);
         }
 
         moneyOnStart = Statistics.Money;
 
         Generator.On();
-        timer.On();
+        /* timer.On(); */
         GameManager.Instance.SetActive(true);
+
+        if(!Tutorial.Instance.Complete)
+        {
+            Tutorial.Instance.SetState(TutorialState.ROTATE, true);
+        }
     }
 
     public void EndLevel()
     {
         if(!GameManager.Instance.isActive) return;
 
-        /* if(bonuses != null) bonuses.RemoveBonus(); */
-        timer.Off();
+        /* if(Bonuses != null) Bonuses.RemoveBonus(); */
+        /* timer.Off(); */
         Money.Plus(LevelWaves.Reward);
 
         Generator.KillAllEnemies();
@@ -71,11 +77,16 @@ public class Level : MonoBehaviour
             Debug.Log("reset biom");
             ResetBiom();
         }
+
+        if(!Tutorial.Instance.Complete)
+        {
+            Tutorial.Instance.SetState(TutorialState.UPGRADE, true);
+        }
     }
 
     public void LoseLevel()
     {
-        /* if(bonuses != null) bonuses.RemoveBonus(); */
+        /* if(Bonuses != null) Bonuses.RemoveBonus(); */
 
         Generator.Off();
         UI.Instance.LoseLevel();
@@ -86,6 +97,8 @@ public class Level : MonoBehaviour
     {
         player.Reset();
         health.Restore();
+
+        weaponsInfo.Load();
 
         shooting.FullAmmoAllWeapons();
         shooting.Reset();
@@ -101,7 +114,7 @@ public class Level : MonoBehaviour
         Generator.Off();
         Generator.ResetAllEnemies();
 
-        timer.Off();
+        /* timer.Off(); */
 
         GameManager.Instance.SetActive(false);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuckshotCollision : MonoBehaviour
 {
     [SerializeField] private Buckshot buckshot;
+    private float force => buckshot.Force;
 
     [Space]
     [SerializeField] private GameObject EnemyHitEffect;
@@ -21,7 +22,7 @@ public class BuckshotCollision : MonoBehaviour
                 enemy = go.GetComponentInParent<Enemy>();
                 if(enemy != null && !enemy.Died)
                 {
-                    enemy.GetHit(buckshot.Damage, 1500f, (enemy.transform.position - buckshot.center).normalized);
+                    enemy.GetHit(buckshot.Damage, force, transform.forward);
                     buckshot.Off();
                     AddEffect(enemy.Center);
                 }

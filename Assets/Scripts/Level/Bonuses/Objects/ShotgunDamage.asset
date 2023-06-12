@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShotgunDamage
   m_EditorClassIdentifier: 
   Name: Shotgun
-  plusDamage: 35
+  plusDamage: 15
   plusAmmo: 0
   reduceCooldownInPercent: 0

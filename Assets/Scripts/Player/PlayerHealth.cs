@@ -54,7 +54,7 @@ public class PlayerHealth : MonoBehaviour
  */
     public void AddBonus(float amnt)
     {
-        bonus = amnt;
+        bonus += amnt;
         Restore();
     }
 
@@ -68,8 +68,9 @@ public class PlayerHealth : MonoBehaviour
         if(Died) return;
 
         Health -= dmg;
+        FenceShake.Instance.On(0.25f);
 
-        if(Health < 0f)
+        if(Health < 0.1f)
         {
             Death();
         }
@@ -93,15 +94,17 @@ public class PlayerHealth : MonoBehaviour
         Died = false;
     }
 
-    void OnCollisionEnter(Collision col)
+    /* void OnCollisionEnter(Collision col) */
+    void OnTriggerEnter(Collider col)
     {
         GameObject go = col.gameObject;
 
         if(go.tag == "Enemy")
         {
             Enemy enemy = go.GetComponent<Enemy>();
-            GetHit(enemy.Damage);
-            enemy.Off();
+            enemy.StartAttack(this);
+            /* GetHit(enemy.Damage);
+            enemy.Off(); */
         }
     }
 }

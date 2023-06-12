@@ -5,6 +5,7 @@ using UnityEngine;
 public class GrenadeCollision : MonoBehaviour
 {
     [SerializeField] private Grenade grenade;
+    private float force => grenade.Force;
 
     void OnCollisionEnter(Collision col)
     {
@@ -39,7 +40,7 @@ public class GrenadeCollision : MonoBehaviour
         foreach(Collider col in cols)
         {
             enemy = col.GetComponent<Enemy>();
-            enemy.GetHit(grenade.Damage, 3000f, (enemy.transform.position - grenade.center).normalized);
+            enemy.GetHit(grenade.Damage, force, transform.forward);
         }
 
         grenade.HitAboveSomething();

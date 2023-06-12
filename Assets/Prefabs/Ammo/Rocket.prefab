@@ -317,12 +317,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fae904dc8f0424aa1db85782758d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 70
+  speed: 80
   sphere: {fileID: 7342528977530786445}
   trial: {fileID: 1101043061054565070}
   rb: {fileID: -567914100534804488}
   destroyEffect: {fileID: 180702, guid: c35ca8cd52b264a419ecc67e1919d259, type: 3}
-  Radius: 12
+  Radius: 8
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024

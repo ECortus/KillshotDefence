@@ -5,6 +5,9 @@ using Cysharp.Threading.Tasks;
 
 public class Shooting : MonoBehaviour
 {
+    public static Shooting Instance { get; set; }
+    void Awake() => Instance = this;
+
     [HideInInspector] public bool IsShooting = false;
     private bool SomethingArmed = false;
 
@@ -54,24 +57,31 @@ public class Shooting : MonoBehaviour
     public void Reset()
     {
         Index = 0;
-        SetWeapon(WeaponsInfoController.Instance.DefaultWeapon);
+        SetWeapon(WeaponsInfoController.Instance.RequireToArm[0]);
     }
 
     void Update()
     {
-        if(SomethingArmed && !PointerIsOverUI.Instance.CheckThis() && !IsShooting)
+        if(SomethingArmed && !PointerIsOverUI.Instance.CheckThis() 
+            && !IsShooting && !weapon.isReloading)
         {
             if(Input.GetMouseButtonDown(0))
             {
                 Begin();
             }
         }
+
+        /* if(Input.GetMouseButtonUp(0) && !weapon.isReloading)
+        {
+            IsShooting = false;
+        } */
     }
 
     public void FullAmmoAllWeapons()
     {
         foreach(ArmedWeapon wp in Weapons)
         {
+            if(wp.Weapon.isReloading) continue;
             wp.Weapon.FullAmmo();
         }
     }
@@ -92,16 +102,19 @@ public class Shooting : MonoBehaviour
                 await UniTask.WaitUntil(() => !weapon.isReloading);
             }
             
-            if(!GameManager.Instance.isActive || !Input.GetMouseButton(0)) break;
+            if(!GameManager.Instance.isActive || !Input.GetMouseButton(0) || !IsShooting) break;
 
             if(weapon.ShootType == ShootingType.Hold)
             {
                 await Shoot();
+                if(!IsShooting) break;
             }
             else if(weapon.ShootType == ShootingType.Tap)
             {
                 await UniTask.WaitUntil(() => Input.GetMouseButtonUp(0));
+
                 await Shoot();
+                if(!IsShooting) break;
 
                 break;
             }

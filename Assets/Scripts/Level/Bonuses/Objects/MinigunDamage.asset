@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MinigunDamage
   m_EditorClassIdentifier: 
   Name: Minigun
-  plusDamage: 5
+  plusDamage: 10
   plusAmmo: 0
   reduceCooldownInPercent: 0

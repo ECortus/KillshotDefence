@@ -67,10 +67,13 @@ public class LevelBonuses : MonoBehaviour
 
         ui.Reset();
         ui.RefreshButtons();
+
+        GameManager.Instance.SetActive(false);
     }
 
     public void Off()
     {
+        GameManager.Instance.SetActive(true);
         gameObject.SetActive(false);
     }
 

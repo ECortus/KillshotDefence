@@ -7,6 +7,7 @@ public class ActionGame : MonoBehaviour
     public void On()
     {
         gameObject.SetActive(true);
+        LevelManager.Instance.ActualLevel.waveCounter.Refresh();
     }
 
     public void Off()
